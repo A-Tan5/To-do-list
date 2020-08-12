@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fRJ-5b-ZG1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fRJ-5b-ZG1">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,22 +18,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.line.vertical.and.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hmw-Jp-uJH">
-                                <rect key="frame" x="87" y="248.33333333333331" width="240" height="239.33333333333334"/>
-                                <color key="tintColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="103.66666666666669" y="184.33333333333334" width="207" height="367.33333333333331"/>
+                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="1xU-QF-BVf"/>
                                     <constraint firstAttribute="height" constant="240" id="gz7-2s-ajU"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="centerX" secondItem="dYe-uu-STP" secondAttribute="centerX" id="UQc-qQ-Ume"/>
-                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="centerX" secondItem="dYe-uu-STP" secondAttribute="centerX" id="dAh-G5-AXd"/>
-                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="centerY" secondItem="dYe-uu-STP" secondAttribute="centerY" id="rK8-eD-FZ2"/>
-                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="centerY" secondItem="dYe-uu-STP" secondAttribute="centerY" id="zhU-yu-4Qo"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Eqb-ZN-wH5"/>
+                        <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="height" secondItem="dYe-uu-STP" secondAttribute="height" multiplier="0.5" id="GlR-3i-hMc"/>
+                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="centerX" secondItem="dYe-uu-STP" secondAttribute="centerX" id="UQc-qQ-Ume"/>
+                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="width" secondItem="dYe-uu-STP" secondAttribute="width" multiplier="0.5" id="qcA-W6-e4u"/>
+                            <constraint firstItem="hmw-Jp-uJH" firstAttribute="centerY" secondItem="dYe-uu-STP" secondAttribute="centerY" id="rK8-eD-FZ2"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="LogoImageView" destination="hmw-Jp-uJH" id="dTd-aT-P3C"/>
@@ -49,6 +50,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="3O7-dY-AEM">
+                            <rect key="frame" x="0.0" y="123.33333587646484" width="414" height="67"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ps-tO-Umn">
+                                    <rect key="frame" x="8" y="10" width="398" height="47"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <color key="tintColor" systemColor="systemPinkColor"/>
+                                    <state key="normal" image="plus.circle.fill" catalog="system">
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40" weight="bold"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="plusButtonPressed:" destination="yXC-sr-opE" eventType="touchUpInside" id="VEa-Ja-r9v"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            <constraints>
+                                <constraint firstItem="0ps-tO-Umn" firstAttribute="centerX" secondItem="3O7-dY-AEM" secondAttribute="centerX" id="MRL-0z-K48"/>
+                                <constraint firstItem="0ps-tO-Umn" firstAttribute="centerY" secondItem="3O7-dY-AEM" secondAttribute="centerY" id="c49-Sx-acV"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="0ps-tO-Umn" secondAttribute="trailing" id="fpr-EJ-Fx7"/>
+                                <constraint firstItem="0ps-tO-Umn" firstAttribute="leading" secondItem="3O7-dY-AEM" secondAttribute="leadingMargin" id="gQe-2s-HJB"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoListCell" id="gfe-rW-YJN" customClass="TodoListTableViewCell" customModule="To_do_list" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="67.333335876464844"/>
@@ -88,10 +113,23 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RRh-UY-b3C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1894.2028985507247" y="129.61956521739131"/>
+            <point key="canvasLocation" x="1344.9275362318842" y="129.61956521739131"/>
         </scene>
     </scenes>
     <resources>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="square.and.line.vertical.and.square.fill" catalog="system" width="128" height="83"/>
+        <systemColor name="scrollViewTexturedBackgroundColor">
+            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

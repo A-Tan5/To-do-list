@@ -37,27 +37,45 @@ class TodoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath)as! TodoListTableViewCell
-        let row = indexPath.row
         
 
-        
-        if TodoListArray[row].isdone == true{
-            cell.accessoryType = .checkmark
-            // 灰字+刪除線
-            let AttributedString = NSMutableAttributedString(string: TodoListArray[row].name)
-            AttributedString.setAttributes([.foregroundColor: UIColor.gray, .strikethroughStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)], range: NSMakeRange(0, AttributedString.length))
+            let row = indexPath.row
+            if TodoListArray[row].isdone == true{
+                cell.accessoryType = .checkmark
+                // 灰字+刪除線
+                let AttributedString = NSMutableAttributedString(string: TodoListArray[row].name)
+                AttributedString.setAttributes([.foregroundColor: UIColor.gray, .strikethroughStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)], range: NSMakeRange(0, AttributedString.length))
 
-            cell.NameLabel.attributedText = AttributedString
-            
-        }else{
-            cell.accessoryType = .none
-            cell.NameLabel.attributedText = NSAttributedString(string: TodoListArray[row].name)
-            
-        }
+                cell.NameLabel.attributedText = AttributedString
+                
+            }else{
+                cell.accessoryType = .none
+                cell.NameLabel.attributedText = NSAttributedString(string: TodoListArray[row].name)
+                
+            }
 
         return cell
     }
     
+    
+    @IBAction func plusButtonPressed(_ sender: UIButton) {
+        let controller = UIAlertController(title: "NEW TO-DO", message: "", preferredStyle: .alert)
+        
+        controller.addTextField{ (textField) in
+            textField.placeholder = "add in"
+        }
+        
+        let action = UIAlertAction(title: "DONE", style: .default) { (UIAlertAction) in
+            let textfield = controller.textFields?[0]
+            let TodoName = textfield!.text
+            TodoListArray.append(TodoItem(name: TodoName!, isdone: false))
+            self.tableView.reloadData()}
+            
+            controller.addAction(action)
+            present(controller, animated: true)
+    
+    }
+
 
     
     // Override to support conditional editing of the table view.
@@ -70,14 +88,15 @@ class TodoListTableViewController: UITableViewController {
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            TodoListArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.reloadData()
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            if editingStyle == .delete {
+                // Delete the row from the data source
+                TodoListArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
+            } else if editingStyle == .insert {
+                // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            }
+        
     }
     
 
@@ -93,27 +112,44 @@ class TodoListTableViewController: UITableViewController {
     
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        
-        // Return false if you do not want the item to be re-orderable.
-        return true
+                return true
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        var ActionTitle : String
-        ActionTitle = TodoListArray[indexPath.row].isdone ?  "Undone" : "done"
         
-        let CheckDoneAction = UIContextualAction(style: .normal, title: ActionTitle, handler: {(action, sourceView, completionHandler) in
+            var ActionTitle : String
+            ActionTitle = TodoListArray[indexPath.row].isdone ?  "Undone" : "done"
             
-            TodoListArray[indexPath.row].isdone = !TodoListArray[indexPath.row].isdone
-            tableView.cellForRow(at: indexPath)?.textLabel?.text = ""
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-            print (TodoListArray[indexPath.row].isdone)
-        })
+            let CheckDoneAction = UIContextualAction(style: .normal, title: ActionTitle, handler: {(action, sourceView, completionHandler) in
+                
+                TodoListArray[indexPath.row].isdone = !TodoListArray[indexPath.row].isdone
+                tableView.cellForRow(at: indexPath)?.textLabel?.text = ""
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+                print (TodoListArray[indexPath.row].isdone)
+            })
+            
+            CheckDoneAction.backgroundColor = UIColor.systemPink
+            
         
-        CheckDoneAction.backgroundColor = UIColor.systemPink
+            let ActionsConfig = UISwipeActionsConfiguration(actions: [CheckDoneAction])
+            return ActionsConfig
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = UIAlertController(title: "Edit Todo", message: "", preferredStyle: .alert)
+        controller.addTextField { (textFields) in
+            textFields.text = TodoListArray[indexPath.row].name
+        }
+        let action = UIAlertAction(title: "DONE", style: .default) { (UIAlertAction) in
+            let TodoName = controller.textFields![0].text
+            TodoListArray[indexPath.row].name = TodoName!
+            tableView.reloadData()
+        }
+        controller.addAction(action)
         
-        let ActionsConfig = UISwipeActionsConfiguration(actions: [CheckDoneAction])
-        return ActionsConfig
+        present(controller, animated: true)
+        
+        
         
     }
   
