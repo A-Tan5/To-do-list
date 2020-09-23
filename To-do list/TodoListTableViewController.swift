@@ -12,7 +12,11 @@ class TodoListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // 讀取user defaults
+        if let data = UserDefaults.standard.data(forKey: "TodoList"), let TodoListData = try? PropertyListDecoder().decode([TodoItem].self, from: data){
+            TodoListArray = TodoListData
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -150,9 +154,17 @@ class TodoListTableViewController: UITableViewController {
         present(controller, animated: true)
         
         
-        
     }
   
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // 寫入user defaults
+        if let data = try? PropertyListEncoder().encode(TodoListArray){
+            let userdefault = UserDefaults.standard
+            userdefault.set(data, forKey: "TodoList")
+        }
+    }
 
         
 
