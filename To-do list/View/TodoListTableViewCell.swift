@@ -11,6 +11,7 @@ import UIKit
 class TodoListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var NameLabel: UILabel!
+    @IBOutlet weak var TimeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
