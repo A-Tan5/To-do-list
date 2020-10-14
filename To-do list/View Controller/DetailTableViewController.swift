@@ -20,7 +20,7 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
         tableView.backgroundColor = .systemGroupedBackground
         
         
-        if TodoSelected?.Notes == nil{
+        if TodoSelected?.notes == nil{
             NotesTextView.text = "附註"
             NotesTextView.textColor = UIColor.lightGray
         }
@@ -32,14 +32,14 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
     
     //返回前一頁
     @objc func popToVC(sender : UIBarButtonItem){
-        print ("日期=\(TodoSendBack?.Date)")
-        print("時間=\(TodoSendBack?.Time)")
+        print ("日期=\(TodoSendBack?.date)")
+        print("時間=\(TodoSendBack?.time)")
         navigationController?.popViewController(animated: true)
     }
     
-    var TodoSelected : TodoItem? // 從前一頁傳來
+    var TodoSelected : Todo? // 從前一頁傳來
     
-    var TodoSendBack : TodoItem?{  //傳回前一頁、傳到下一頁
+    var TodoSendBack : Todo?{  //傳回前一頁、傳到下一頁
         let Name = NameTextField.text ?? ""
         let IsDone = self.TodoSelected!.isdone
         var Notes : String {
@@ -57,22 +57,33 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
         var EnableNotification : Bool? {
             guard IsEnableNotificationShown != false else {return nil}
             return EnableNotificationSwitch.isOn}
-        var NotificationType : TodoItem.NotificationTypes? {
+        var NotificationType : String? {
             guard EnableNotificationSwitch.isOn == true else {return nil}
-            return TodoSelected?.NotificationType
+            return TodoSelected?.notificationType
         }
-            
+                    
+        let todo = TodoSelected!
+        todo.name = Name
+        todo.date = date
+        todo.notes = Notes
+        todo.time = time
+        todo.enableNotification = EnableNotification ?? false
+        todo.notificationType = NotificationType
+        todo.isdone = IsDone
+
+        container.saveContext()
+        return todo
         
-        return TodoItem(name: Name, isdone: IsDone, Notes: Notes, Date: date, Time: time, EnableNotification: EnableNotification, NotificationType: NotificationType)
     
     }
     
     
     
-    var NotiTypeSendBack : TodoItem.NotificationTypes? //從下一頁回傳
+    var NotiTypeSendBack : String? //從下一頁回傳
     
 
-    
+    var container = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+
     
     
     var IsNotesTextViewStretched = false
@@ -103,32 +114,32 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
     //MARK: - configureView
     func configureView(){
         NameTextField.text = TodoSelected?.name
-        NotesTextView.text = TodoSelected?.Notes
+        NotesTextView.text = TodoSelected?.notes
         
 
-        if let date = TodoSelected?.Date {
+        if let date = TodoSelected?.date {
             DateLabel.text = DateAndTimeFormatter.Dateformatter.string(from: date)
         }else{
             DateLabel.text = DateAndTimeFormatter.Dateformatter.string(from: Date())
         }
         
-        if let time = TodoSelected?.Time{
+        if let time = TodoSelected?.time{
             TimeLabel.text = DateAndTimeFormatter.Timeformatter.string(from: time)
         }else{
             TimeLabel.text = DateAndTimeFormatter.Timeformatter.string(from: Date())
         }
         
-        EnableNotificationSwitch.isOn = TodoSelected?.EnableNotification ?? false
-        NotificationTypeLabel.text = TodoSelected?.NotificationType?.rawValue
+        EnableNotificationSwitch.isOn = TodoSelected?.enableNotification ?? false
+        NotificationTypeLabel.text = TodoSelected?.notificationType
         
-        if TodoSelected?.Date != nil{
+        if TodoSelected?.date != nil{
             DateSwitch.isOn = true
             IsDateDatePickerShown = true
         }else{
             DateLabel.isHidden = true
             IsDateDatePickerShown = false
         }
-        if TodoSelected?.Time != nil{
+        if TodoSelected?.time != nil{
             TimeSwitch.isOn = true
             IsTimeDatePickerShown = true
             IsEnableNotificationShown = true
@@ -138,8 +149,8 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
             IsEnableNotificationShown = false
         }
         
-        if let type = TodoSelected?.NotificationType{
-            NotificationTypeLabel.text = type.rawValue
+        if let type = TodoSelected?.notificationType{
+            NotificationTypeLabel.text = type
             IsEnableNotificationShown = true
             IsNotificationTypeShown = true
         }
@@ -148,13 +159,13 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
     func configureDatePicker(){
         DateDatePicker.locale = Locale(identifier: "zh_Hant_TW")
         DateDatePicker.timeZone = TimeZone(abbreviation: "Asia/Taipei")
-        DateDatePicker.date = TodoSelected?.Date ?? Date()
+        DateDatePicker.date = TodoSelected?.date ?? Date()
         
-        timeDPRanged(date: TodoSelected?.Date)
+        timeDPRanged(date: TodoSelected?.date)
       
         TimeDatePicker.locale = Locale(identifier: "zh_Hant_TW")
         TimeDatePicker.timeZone = TimeZone(abbreviation: "Asia/Taipei")
-        TimeDatePicker.date = TodoSelected?.Time ?? Date()
+        TimeDatePicker.date = TodoSelected?.time ?? Date()
     }
     
     
@@ -187,11 +198,11 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
             IsNotificationTypeShown = false
         }
         
-        if let type = TodoSelected!.NotificationType{
-            NotificationTypeLabel.text = type.rawValue
+        if let type = TodoSelected!.notificationType{
+            NotificationTypeLabel.text = type
         }else{
-            TodoSelected!.NotificationType = .TenMinutesAgo
-            NotificationTypeLabel.text = TodoSelected!.NotificationType?.rawValue
+            TodoSelected!.notificationType = "十分鐘前"
+            NotificationTypeLabel.text = TodoSelected!.notificationType
         }
         
         tableView.beginUpdates()
@@ -210,11 +221,11 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
             DateLabel.isHidden = false
         }
         if sender.isOn == false {IsNotificationTypeShown = false}
-        if let type = TodoSelected!.NotificationType{
-            NotificationTypeLabel.text = type.rawValue
+        if let type = TodoSelected!.notificationType{
+            NotificationTypeLabel.text = type
         }else{
-            TodoSelected!.NotificationType = .TenMinutesAgo
-            NotificationTypeLabel.text = TodoSelected!.NotificationType?.rawValue
+            TodoSelected!.notificationType = "十分鐘前"
+            NotificationTypeLabel.text = TodoSelected!.notificationType
         }
         
         TimeLabel.isHidden = sender.isOn ? false : true
@@ -291,11 +302,11 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
                 DateSwitch.isOn = true
                 DateLabel.isHidden = false
                 
-                if let type = TodoSelected!.NotificationType{
-                    NotificationTypeLabel.text = type.rawValue
+                if let type = TodoSelected!.notificationType{
+                    NotificationTypeLabel.text = type
                 }else{
-                    TodoSelected!.NotificationType = .TenMinutesAgo
-                    NotificationTypeLabel.text = TodoSelected!.NotificationType?.rawValue
+                    TodoSelected!.notificationType = "十分鐘前"
+                    NotificationTypeLabel.text = TodoSelected!.notificationType
                 }
             }
             TimeLabel.isHidden = IsTimeDatePickerShown ? true : false
@@ -357,17 +368,17 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
         if segue.identifier == "ShowNotificationType"{
             let controller = segue.destination as! NotificationTypeTableViewController
             controller.delegate = self
-            if let type = TodoSendBack?.NotificationType{
+            if let type = TodoSendBack?.notificationType{
                 controller.NotificationTypeSelected = type
             }
         }
     }
     
-    func sendBackType(NotificationType: TodoItem.NotificationTypes?) {
+    func sendBackType(NotificationType: String?) {
         NotiTypeSendBack = NotificationType
         print("通知形式=\(NotiTypeSendBack)")
-        TodoSelected?.NotificationType = NotiTypeSendBack
-        NotificationTypeLabel.text = NotiTypeSendBack?.rawValue
+        TodoSelected?.notificationType = NotiTypeSendBack
+        NotificationTypeLabel.text = NotiTypeSendBack
     }
     
     

@@ -19,6 +19,8 @@
 		DDD0F095251DAC8800652E16 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0F094251DAC8700652E16 /* DetailTableViewController.swift */; };
 		DDD0F09A251DB82100652E16 /* NotificationTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0F099251DB82100652E16 /* NotificationTypeTableViewController.swift */; };
 		DDD0F0A0251E3BED00652E16 /* DateAndTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0F09F251E3BE900652E16 /* DateAndTimeFormatter.swift */; };
+		DDFDE5052534A02900A01474 /* TodoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DDFDE5032534A02900A01474 /* TodoList.xcdatamodeld */; };
+		DDFDE51A2535984500A01474 /* NotificationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDE5192535984500A01474 /* NotificationTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		DDD0F099251DB82100652E16 /* NotificationTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTypeTableViewController.swift; sourceTree = "<group>"; };
 		DDD0F09F251E3BE900652E16 /* DateAndTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndTimeFormatter.swift; sourceTree = "<group>"; };
 		DDDD6DA42521FC2B00816524 /* To-do list.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To-do list.entitlements"; sourceTree = "<group>"; };
+		DDFDE5042534A02900A01474 /* TodoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoList.xcdatamodel; sourceTree = "<group>"; };
+		DDFDE5192535984500A01474 /* NotificationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 				DDDD6DA42521FC2B00816524 /* To-do list.entitlements */,
 				DD428C3424E0E7EF0038FD69 /* AppDelegate.swift */,
 				DD428C3624E0E7EF0038FD69 /* SceneDelegate.swift */,
+				DDFDE5032534A02900A01474 /* TodoList.xcdatamodeld */,
 				DDF932F8251F449700077F22 /* View */,
 				DDD0F0A3251E3C4A00652E16 /* Other Controllers */,
 				DDD0F09E251E3B9300652E16 /* Model */,
@@ -98,6 +103,7 @@
 		DDD0F09E251E3B9300652E16 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DDFDE5192535984500A01474 /* NotificationTypes.swift */,
 				DD428C4C24E0FDC80038FD69 /* TodoModel.swift */,
 			);
 			path = Model;
@@ -193,8 +199,10 @@
 				DD428C3524E0E7EF0038FD69 /* AppDelegate.swift in Sources */,
 				DD428C4F24E0FF920038FD69 /* TodoListTableViewCell.swift in Sources */,
 				DD428C4B24E0EA550038FD69 /* TodoListTableViewController.swift in Sources */,
+				DDFDE51A2535984500A01474 /* NotificationTypes.swift in Sources */,
 				DDD0F0A0251E3BED00652E16 /* DateAndTimeFormatter.swift in Sources */,
 				DD428C3724E0E7EF0038FD69 /* SceneDelegate.swift in Sources */,
+				DDFDE5052534A02900A01474 /* TodoList.xcdatamodeld in Sources */,
 				DDD0F09A251DB82100652E16 /* NotificationTypeTableViewController.swift in Sources */,
 				DDD0F095251DAC8800652E16 /* DetailTableViewController.swift in Sources */,
 				DD428C4924E0E9F30038FD69 /* LaunchViewController.swift in Sources */,
@@ -398,6 +406,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DDFDE5032534A02900A01474 /* TodoList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DDFDE5042534A02900A01474 /* TodoList.xcdatamodel */,
+			);
+			currentVersion = DDFDE5042534A02900A01474 /* TodoList.xcdatamodel */;
+			path = TodoList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DD428C2924E0E7EF0038FD69 /* Project object */;
 }

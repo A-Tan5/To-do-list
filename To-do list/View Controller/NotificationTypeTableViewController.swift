@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NotiTypeDelegate {
-    func sendBackType(NotificationType : TodoItem.NotificationTypes?)
+    func sendBackType(NotificationType : String?)
 }
 
 class NotificationTypeTableViewController: UITableViewController {
@@ -26,9 +26,9 @@ class NotificationTypeTableViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    
+    var NotificationTypes = ["十分鐘前",  "一小時前", "兩小時前", "一天前"]
     var delegate : NotiTypeDelegate?
-    var NotificationTypeSelected : TodoItem.NotificationTypes? //準備傳回前一頁
+    var NotificationTypeSelected : String? //準備傳回前一頁
 
     // MARK: - Table view data source
 
@@ -39,16 +39,16 @@ class NotificationTypeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return TodoItem.NotificationTypes.allCases.count
+        return NotificationTypes.count
     }
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TypeCell", for: indexPath)
         let row = indexPath.row
-        cell.textLabel?.text = TodoItem.NotificationTypes.allCases[row].rawValue
+        cell.textLabel?.text = NotificationTypes[row]
 
-        if TodoItem.NotificationTypes.allCases[row] == NotificationTypeSelected{
+        if NotificationTypes[row] == NotificationTypeSelected{
             cell.accessoryType = .checkmark
         }else{
             cell.accessoryType = .none
@@ -60,7 +60,7 @@ class NotificationTypeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let row = indexPath.row
-        let type = TodoItem.NotificationTypes.allCases[row]
+        let type = NotificationTypes[row]
         NotificationTypeSelected = type
         tableView.reloadData()
 
