@@ -8,7 +8,7 @@
 
 import Foundation
 
-//加入時間
+// 已捨棄，改用Core Data
 struct TodoItem : Codable{
     var name : String
     var isdone : Bool
