@@ -73,8 +73,6 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
 
         container.saveContext()
         return todo
-        
-    
     }
     
     

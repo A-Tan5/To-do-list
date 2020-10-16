@@ -106,11 +106,11 @@ class TodoListTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-//            container.viewContext.delete(TodoListArray[indexPath.row])
+            container.viewContext.delete(TodoListArray[indexPath.row])
             TodoListArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
-//            container.saveContext()
+            container.saveContext()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -324,6 +324,7 @@ class TodoListTableViewController: UITableViewController{
         do {
             let array = try context.fetch(request)
             TodoListArray = array as [Todo]
+            // TodoListArray = array as [TodoItem]
 
         } catch  {
             print("error")
