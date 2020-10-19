@@ -78,8 +78,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-
+    
+//    func applicationWillTerminate(_ application: UIApplication) {
+//            deleteAll()
+//            for todo in TodoListArray{
+//                save(TodoItem: todo)
+//            }
+//
+//        }
+//        
+//        func deleteAll(){
+//            let context = persistentContainer.viewContext
+//
+//            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
+//            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//            
+//            do {
+//                try context.execute(deleteRequest)
+//            } catch  {
+//                print("DELETION ERROR!!")
+//            }
+//        }
+//        
+//        func save(TodoItem: Todo){
+//            let context = persistentContainer.viewContext
+//            
+//            let todo = Todo(context: TodoItem.managedObjectContext!)
+//            todo.name = TodoItem.name
+//            todo.date = TodoItem.date
+//            todo.notes = TodoItem.notes
+//            todo.time = TodoItem.time
+//            todo.enableNotification = TodoItem.enableNotification
+//            todo.notificationType = TodoItem.notificationType
+//            todo.isdone = TodoItem.isdone
+//
+//            persistentContainer.saveContext()
+//        }
 }
+
+
 
 extension AppDelegate : UNUserNotificationCenterDelegate{
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

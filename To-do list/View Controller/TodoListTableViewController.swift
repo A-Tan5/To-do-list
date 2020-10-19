@@ -117,12 +117,14 @@ class TodoListTableViewController: UITableViewController{
     
     }
     
-
+    
+// FIXME: MoveRow無效...
+    
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         let MovedTodo = TodoListArray[fromIndexPath.row]
         TodoListArray.remove(at: fromIndexPath.row)
         TodoListArray.insert(MovedTodo, at: to.row)
-//        container.saveContext()
+        container.saveContext()
     }
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -217,6 +219,8 @@ class TodoListTableViewController: UITableViewController{
                 TodoListArray.remove(at: RowSelected)
             }
             TodoListArray.insert(TodoItemGot, at: RowSelected)
+//            container.viewContext.refresh(TodoListArray[RowSelected], mergeChanges: true)
+//            container.saveContext()
             tableView.reloadData()
         }
     }
@@ -277,43 +281,43 @@ class TodoListTableViewController: UITableViewController{
 
     // MARK: - 資料儲存、Core Data
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        deleteAll()
-        for todo in TodoListArray{
-            save(TodoItem: todo)
-        }
-
-    }
-    
-    func deleteAll(){
-        let context = container.viewContext
-
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        do {
-            try context.execute(deleteRequest)
-        } catch  {
-            print("DELETION ERROR!!")
-        }
-    }
-    
-    func save(TodoItem: Todo){
-        let context = container.viewContext
-        
-        let todo = Todo(context: context)
-        todo.name = TodoItem.name
-        todo.date = TodoItem.date
-        todo.notes = TodoItem.notes
-        todo.time = TodoItem.time
-        todo.enableNotification = TodoItem.enableNotification ?? false
-        todo.notificationType = TodoItem.notificationType
-        todo.isdone = TodoItem.isdone
-
-        container.saveContext()
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        deleteAll()
+//        for todo in TodoListArray{
+//            save(TodoItem: todo)
+//        }
+//
+//    }
+//    
+//    func deleteAll(){
+//        let context = container.viewContext
+//
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
+//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//        
+//        do {
+//            try context.execute(deleteRequest)
+//        } catch  {
+//            print("DELETION ERROR!!")
+//        }
+//    }
+//    
+//    func save(TodoItem: Todo){
+//        let context = container.viewContext
+//        
+//        let todo = Todo(context: context)
+//        todo.name = TodoItem.name
+//        todo.date = TodoItem.date
+//        todo.notes = TodoItem.notes
+//        todo.time = TodoItem.time
+//        todo.enableNotification = TodoItem.enableNotification ?? false
+//        todo.notificationType = TodoItem.notificationType
+//        todo.isdone = TodoItem.isdone
+//
+//        container.saveContext()
+//    }
     
 
     func getTodoList(){

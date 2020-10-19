@@ -18,8 +18,7 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
         configureView()
         configureDatePicker()
         tableView.backgroundColor = .systemGroupedBackground
-        
-        
+                
         if TodoSelected?.notes == nil{
             NotesTextView.text = "附註"
             NotesTextView.textColor = UIColor.lightGray
@@ -61,7 +60,10 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
             guard EnableNotificationSwitch.isOn == true else {return nil}
             return TodoSelected?.notificationType
         }
-                    
+        
+        let context = container.viewContext
+//        let TodoSele = TodoSelected as! Todo
+//        let todo = Todo(context: TodoSelected!.managedObjectContext!)
         let todo = TodoSelected!
         todo.name = Name
         todo.date = date
@@ -71,7 +73,9 @@ class DetailTableViewController: UITableViewController, UITextViewDelegate, Noti
         todo.notificationType = NotificationType
         todo.isdone = IsDone
 
+        context.refresh(todo, mergeChanges: true)
         container.saveContext()
+        print("GGGGGGGGGGGGGGGGGG=\(todo)")
         return todo
     }
     
